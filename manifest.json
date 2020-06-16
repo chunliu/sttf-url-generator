@@ -1,0 +1,16 @@
+{
+    "name": "STTF Url Generator",
+    "version": "0.1",
+    "description": "Generate a scroll-to-text-fragment url and open it in a new tab.",
+    "permissions": ["clipboardRead", "clipboardWrite", "contextMenus"],
+    "background": {
+      "scripts": ["contextMenu.js"]
+    },
+    "icons": {
+      "16": "images/doc-link16.png",
+      "32": "images/doc-link32.png",
+      "48": "images/doc-link48.png",
+      "128": "images/doc-link128.png"
+    },
+    "manifest_version": 2
+  }
