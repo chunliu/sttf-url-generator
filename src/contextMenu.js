@@ -25,7 +25,7 @@ function quoteOnClick(info, tab) {
 }
 
 var id = chrome.contextMenus.create({
-    "title": "Get Fragment Link", 
+    "title": "Open STTF Url", 
     "id": "quote_doc",
     "contexts": ["selection"],
     "onclick": quoteOnClick
