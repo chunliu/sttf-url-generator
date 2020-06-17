@@ -1,32 +1,52 @@
 'use strict';
 
-function quoteOnClick(info, tab) {
-    var prefix = "#:~:text=";
-    var fragmentLink = info.pageUrl + prefix + encodeURIComponent(info.selectionText);
-    console.log(fragmentLink);
+function getFragment(fragStr) {
+    if(fragStr.length < 300) {
+        // Use exact matching
+        return encodeURIComponent(fragStr);
+    } else {
+        // Use range-based matching
+        const str = fragStr.trim();
+        const start = str.match(/^(\S+\s+){5}/);
+        const end = str.match(/(\s+\S+){5}$/);
+        return encodeURIComponent(start[0]) + "," + encodeURIComponent(end[0]);
+    }
+}
 
+function copyToClipboard(content) {
     // Create a hidden input
-    var el = document.createElement('textarea');
-    el.value = fragmentLink;
-    document.body.append(el);
+    const ta = document.createElement('textarea');
+    ta.value = content;
+    document.body.append(ta);
 
     // Copy the text to the clipboard
-    el.select();
-    var success = document.execCommand('copy');
-    el.remove();
+    ta.select();
+    const success = document.execCommand('copy');
+    ta.remove();
 
     if (success) {
         console.log("copy successfully.");
     } else {
         console.log("copy failed.");
     }
+}
+
+function quoteOnClick(info, tab) {
+    const directive = "#:~:text=";
+    const fragmentLink = info.pageUrl + directive + getFragment(info.selectionText);
+    console.log(fragmentLink);
+
+    copyToClipboard(fragmentLink);
 
     chrome.tabs.create({"url": fragmentLink, "active": true});
 }
 
-var id = chrome.contextMenus.create({
-    "title": "Open STTF Url", 
-    "id": "quote_doc",
-    "contexts": ["selection"],
-    "onclick": quoteOnClick
+chrome.contextMenus.onClicked.addListener(quoteOnClick);
+
+chrome.runtime.onInstalled.addListener(function(){
+    chrome.contextMenus.create({
+        "title": "Open STTF Url", 
+        "id": "quote_doc",
+        "contexts": ["selection"]
+    });
 });
