@@ -31,7 +31,7 @@ function copyToClipboard(content) {
     }
 }
 
-function quoteOnClick(info, tab) {
+function quoteOnClick(info) {
     const directive = "#:~:text=";
     const fragmentLink = info.pageUrl + directive + getFragment(info.selectionText);
     console.log(fragmentLink);
