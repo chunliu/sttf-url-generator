@@ -1,12 +1,14 @@
 'use strict';
 
 function getFragment(fragStr) {
+    
+    const str = fragStr.trim();
+
     if(fragStr.length < 300) {
         // Use exact matching
-        return encodeURIComponent(fragStr);
+        return encodeURIComponent(str);
     } else {
         // Use range-based matching
-        const str = fragStr.trim();
         const start = str.match(/^(\S+\s+){5}/);
         const end = str.match(/(\s+\S+){5}$/);
         return encodeURIComponent(start[0]) + "," + encodeURIComponent(end[0]);
