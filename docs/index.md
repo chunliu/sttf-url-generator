@@ -1,18 +1,17 @@
 ---
 layout: default
-title: Private Policy
+title: Home
 ---
 
 # STTF Url Generator Extension for Chrome/Edge
 
-## How to use it
+<h5 style="text-align: right;"><a href="./privacy-policy.html">Privacy Policy</a></h5>
 
-> [!NOTE]
-> The publishing to Chrome and Edge web store is pending review. If you want to try it now, you can clone this repo and load it into the browser with developer mode.
+## How to use it
 
 Select a text snippet on the page, right click on the selection, and click `Open STTF Url`. A url with the text fragment will be generated and copied to clipboard, and a new tab will be opened with the url.
 
-![how to use](../media/sttf-url.gif)
+![how to use](./sttf-url.gif)
 
 ## How it works
 

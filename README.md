@@ -9,7 +9,7 @@ A Chrome/Edge extension to generate the url with the scroll-to-text-fragment for
 
 Select a text snippet on the page, right click on the selection, and click `Open STTF Url`. A url with the text fragment will be generated and copied to clipboard, and a new tab will be opened with the url.
 
-![how to use](/media/sttf-url.gif)
+![how to use](/docs/sttf-url.gif)
 
 ## How it works
 
