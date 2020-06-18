@@ -17,5 +17,6 @@
     "32": "images/sttf-url32.png",
     "48": "images/sttf-url48.png",
     "128": "images/sttf-url128.png"
-  }
+  },
+  "minimum_chrome_version": "80"
 }

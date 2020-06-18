@@ -4,6 +4,9 @@ A Chrome/Edge extension to generate the url with the scroll-to-text-fragment for
 
 ## How to use it
 
+> [!NOTE]
+> The publishing to Chrome and Edge web store is pending review. If you want to try it now, you can clone this repo and load it into the browser with developer mode.
+
 Select a text snippet on the page, right click on the selection, and click `Open STTF Url`. A url with the text fragment will be generated and copied to clipboard, and a new tab will be opened with the url.
 
 ![how to use](/media/sttf-url.gif)
@@ -18,5 +21,5 @@ The extension works in the following way.
 
 ## Note
 
-- According to the [spec](https://wicg.github.io/scroll-to-text-fragment/#word-boundaries#:~:text=The%20substring%20%22mountain%20range%22%20is%20word%20bounded%20within%20the%20string%20%22An%20impressive%20mountain%20range%22%20but%20not%20within%20%22An%20impressive%20mountain%20ranger%22.), the selection of the text snippet must adhere to the word boundaries. In another words, the selection needs to start from the beginning of the first word and end at the ending of the last word.
+- According to the [spec](https://wicg.github.io/scroll-to-text-fragment/#word-boundaries#:~:text=The%20substring%20%22mountain%20range%22%20is%20word%20bounded%20within%20the%20string%20%22An%20impressive%20mountain%20range%22%20but%20not%20within%20%22An%20impressive%20mountain%20ranger%22.), the selection of the text snippet must adhere to the word boundaries. In another words, the selection needs to start from the beginning of the first word and end at the ending of the last word of the text snippet. If the selection starts or ends at a character in a word, the browser would not be able to find the matching accurately.
 - Due to the [algorithm](https://wicg.github.io/scroll-to-text-fragment/#finding-ranges-in-a-document#:~:text=each%20of%20prefix%2C%20textStart%2C%20textEnd%2C%20and%20suffix%20will%20only%20match%20text%20within%20a%20single%20block.) of finding ranges in a document, the selection of the text snippet should avoid crossing multiple blocks. For example, if a selection is across a `<h2>` and a `<div>`, the browser may not be able to scroll to the text fragment accurately.
