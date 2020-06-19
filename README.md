@@ -2,7 +2,7 @@
 
 A Chrome/Edge extension to generate the url with the scroll-to-text-fragment for the selected text. The extension will copy the url to the clipboard and open it in a new tab.
 
-Get it from [Chrome Web Store](https://chrome.google.com/webstore/search/STTF%20Url%20Generator)
+Get it from [Chrome Web Store](https://chrome.google.com/webstore/detail/sttf-url-generator/mlihnffnlcfgjkkmigdgahgpfpfddafo)
 
 ## How to use it
 

@@ -7,7 +7,7 @@ title: Home
 
 <h5 style="text-align: right;"><a href="./privacy-policy.html">Privacy Policy</a></h5>
 
-Get it from [Chrome Web Store](https://chrome.google.com/webstore/search/STTF%20Url%20Generator)
+Get it from [Chrome Web Store](https://chrome.google.com/webstore/detail/sttf-url-generator/mlihnffnlcfgjkkmigdgahgpfpfddafo)
 
 ## How to use it
 
