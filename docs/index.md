@@ -7,6 +7,8 @@ title: Home
 
 <h5 style="text-align: right;"><a href="./privacy-policy.html">Privacy Policy</a></h5>
 
+Get it from [Chrome Web Store](https://chrome.google.com/webstore/search/STTF%20Url%20Generator)
+
 ## How to use it
 
 Select a text snippet on the page, right click on the selection, and click `Open STTF Url`. A url with the text fragment will be generated and copied to clipboard, and a new tab will be opened with the url.
