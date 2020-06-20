@@ -29,30 +29,20 @@ function copyToClipboard(content) {
     return success;
 }
 
-function tabUpdated(tabId, changeInfo) {
-    console.log("tab update: " + tabId + ", status: " + changeInfo.status);
-    if(changeInfo.status === "complete") {
-        // Drop a message to the new tab when it is ready and remove the listener
-        chrome.tabs.onUpdated.removeListener(tabUpdated);
-        chrome.tabs.sendMessage(tabId, {sttfmsg: "copied"});
-    }
-}
-
 function quoteOnClick(info) {
     // Create fragment link
     const directive = "#:~:text=";
     const fragmentLink = info.pageUrl + directive + getFragment(info.selectionText);
     // Copy it to clipboard
     copyToClipboard(fragmentLink);
-
+    
     if(info.menuItemId == "sttf_open") {
         // Open a new tab if the user choose to
-        chrome.tabs.onUpdated.addListener(tabUpdated);
         chrome.tabs.create({"url": fragmentLink, "active": true});
     } else {
-        // Drop a message to content script
-        chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-            chrome.tabs.sendMessage(tabs[0].id, {sttfmsg: "copied"});
+        // Display a message
+        chrome.tabs.insertCSS({file: "./msgbox/msgbox.css"}, function(){
+            chrome.tabs.executeScript({file: "./msgbox/msgbox.js"});
         });
     }
 }
@@ -66,14 +56,14 @@ chrome.runtime.onInstalled.addListener(function(){
         "contexts": ["selection"]
     });
     chrome.contextMenus.create({
-        "title": "Open", 
-        "id": "sttf_open",
+        "title": "Copy", 
+        "id": "sttf_copy",
         "parentId": "sttf_parent",
         "contexts": ["selection"]
     });
     chrome.contextMenus.create({
-        "title": "Copy", 
-        "id": "sttf_copy",
+        "title": "Open", 
+        "id": "sttf_open",
         "parentId": "sttf_parent",
         "contexts": ["selection"]
     });

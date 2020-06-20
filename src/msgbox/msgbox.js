@@ -1,15 +1,24 @@
 "use strict";
-// Create the message box element
-const template = document.createElement("template");
-template.innerHTML = '<div class="sttf-url-msg-box"> \
-        <span class="helper"></span> \
-        <div> \
-            <p>The STTF link has been copied!</p> \
-        </div> \
-    </div>';
 
-const msgbox = template.content.firstChild;
-document.body.append(msgbox);
+function showMessageBox() {
+    let msgbox = document.querySelector("sttf-url-msg-box");
+    if(msgbox == null) {
+        // Create the message box element
+        const template = document.createElement("template");
+        template.innerHTML = '<div class="sttf-url-msg-box"> \
+                <span class="helper"></span> \
+                <div> \
+                    <p>The STTF link has been copied!</p> \
+                </div> \
+            </div>';
+
+        msgbox = template.content.firstChild;
+        document.body.append(msgbox);
+    }
+
+    fadeIn(msgbox);
+    setTimeout(fadeOut, 1000, msgbox);
+}
 
 // Use fade in/out to display the message box
 function fadeOut(element) {
@@ -18,6 +27,7 @@ function fadeOut(element) {
         if (op <= 0.1){
             clearInterval(timer);
             element.style.display = "none";
+            element.remove();
         }
         element.style.opacity = op;
         element.style.filter = "alpha(opacity=" + op * 100 + ")";
@@ -38,11 +48,4 @@ function fadeIn(element) {
     }, 10);
 }
 
-// Listen to the message from background
-chrome.runtime.onMessage.addListener(
-    function(request){
-        if (request.sttfmsg === "copied") {
-            fadeIn(msgbox);
-            setTimeout(fadeOut, 1000, msgbox);
-        }
-});
+showMessageBox();
