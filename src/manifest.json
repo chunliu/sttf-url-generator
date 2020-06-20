@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,  
   "name": "STTF Url Generator",
-  "version": "0.4",
+  "version": "0.5",
   "author": "Chun Liu",
   "description": "Generate a scroll-to-text-fragment url and open it in a new tab.",
   "permissions": [
@@ -10,8 +10,15 @@
   ],
   "background": {
     "persistent": false,
-    "scripts": ["contextMenu.js"]
+    "scripts": ["background.js"]
   },
+  "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "css": ["./msgbox/msgbox.css"],
+      "js": ["./msgbox/msgbox.js"]
+    }
+  ],
   "icons": {
     "16": "images/sttf-url16.png",
     "32": "images/sttf-url32.png",
