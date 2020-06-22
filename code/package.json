@@ -1,0 +1,30 @@
+{
+  "name": "sttf-url-generator",
+  "version": "0.1.0",
+  "description": "The project for sttf-url-generator extension",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chunliu/sttf-url-generator.git"
+  },
+  "keywords": [
+    "chrome",
+    "extension"
+  ],
+  "author": "Chun Liu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/chunliu/sttf-url-generator/issues"
+  },
+  "homepage": "https://chunliu.github.io/sttf-url-generator/",
+  "devDependencies": {
+    "@babel/core": "^7.10.3",
+    "babel-loader": "^8.1.0",
+    "copy-webpack-plugin": "^6.0.2",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.12"
+  }
+}
