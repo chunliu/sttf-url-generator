@@ -11,7 +11,7 @@ This browser extension helps you create a url with a text fragment. With this ur
 
 ## How to use it
 
-- Get the extension from [Chrome Web Store](https://chrome.google.com/webstore/detail/sttf-url-generator/mlihnffnlcfgjkkmigdgahgpfpfddafo).
+- Get the extension from [Chrome Web Store](https://chrome.google.com/webstore/detail/sttf-url-generator/mlihnffnlcfgjkkmigdgahgpfpfddafo) or [Edge Add-ons](https://microsoftedge.microsoft.com/addons/detail/sttf-url-generator/dpdjjailihobhcfmchiadaomllbdfhid?hl=en-US).
 - Select a text snippet on the page and right click on the selection.
 - Point to `STTF Link` on the context menu.
 - Click `Copy` if you want to copy the sttf link without opening it.
