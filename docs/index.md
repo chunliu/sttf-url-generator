@@ -7,6 +7,8 @@ title: Home
 
 <h5 style="text-align: right;"><a href="./privacy-policy.html">Privacy Policy</a></h5>
 
+This browser extension helps you create a url with a text fragment. With this url, the browser will automatically scroll to and highlight the text fragment on the page, so users will be able to locate the information on the page more quickly and accurately. It is useful when you want to share with others the specific information with a link.
+
 ## How to use it
 
 - Get the extension from [Chrome Web Store](https://chrome.google.com/webstore/detail/sttf-url-generator/mlihnffnlcfgjkkmigdgahgpfpfddafo).

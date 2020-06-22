@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 function getFragment(fragStr) {
     
@@ -32,7 +32,14 @@ function copyToClipboard(content) {
 function quoteOnClick(info) {
     // Create fragment link
     const directive = "#:~:text=";
-    const fragmentLink = info.pageUrl + directive + getFragment(info.selectionText);
+    // If the page url has a fragment already, remove it first.
+    const regex = RegExp(directive, "g");
+    let pageUrl = info.pageUrl;
+    if(regex.test(info.pageUrl)) {
+        pageUrl = info.pageUrl.split(directive)[0];
+    }
+
+    const fragmentLink = pageUrl + directive + getFragment(info.selectionText);
     // Copy it to clipboard
     copyToClipboard(fragmentLink);
     
