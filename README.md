@@ -1,5 +1,7 @@
 # ![Icon](/media/sttf-url48.png) scroll-to-text-fragment url generator
 
+![build](https://github.com/chunliu/sttf-url-generator/workflows/build/badge.svg)
+
 A Chrome/Edge extension to generate the url with the scroll-to-text-fragment for the selected text. The extension will copy the url to the clipboard and open it in a new tab.
 
 Get it from [Chrome Web Store](https://chrome.google.com/webstore/detail/sttf-url-generator/mlihnffnlcfgjkkmigdgahgpfpfddafo) / [Edge Add-ons](https://microsoftedge.microsoft.com/addons/detail/sttf-url-generator/dpdjjailihobhcfmchiadaomllbdfhid?hl=en-US)
