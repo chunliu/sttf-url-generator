@@ -3,7 +3,7 @@
 function getFragment (fragStr) {
   const str = fragStr.trim();
 
-  if (fragStr.length < 300) {
+  if (str.length < 300) {
     // Use exact matching
     return encodeURIComponent(str);
   } else {
