@@ -7,6 +7,7 @@ module.exports = {
     entry: {
         background: './background.js',
         'msgbox/msgbox': './msgbox/msgbox.js',
+        'popup/popup': './popup/popup.js'
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
@@ -32,6 +33,8 @@ module.exports = {
             patterns: [
                 { from: './manifest.json', to: 'manifest.json'  },
                 { from: './msgbox/msgbox.css', to: 'msgbox/msgbox.css' },
+                { from: './popup/popup.html', to: 'popup/popup.html'},
+                { from: './popup/popup.css', to: 'popup/popup.css'},
                 { from: './images', to: 'images'}
             ]
         })

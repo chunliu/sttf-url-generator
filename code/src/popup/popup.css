@@ -1,0 +1,37 @@
+html {
+    width: 220px;
+}
+
+body {
+    margin: 0 !important;
+    background-color: #ffffff;
+    font-family: "Segoe UI Web (West European)", "Segoe UI", -apple-system, system-ui, Roboto, "Helvetica Neue",
+        sans-serif;
+    color: #201f1e;
+    font-size: 12px;
+    width: 220px;
+}
+
+.settings_header {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 16px;
+    font-size: 18px;
+}
+
+.settings_toggle_line {
+    padding: 0 16px;
+    margin-bottom: 16px;
+}
+
+.settings_toggle {
+    align-items: center;
+    display: flex;
+    height: 20px;
+    margin: 6px 0;
+}
+
+.settings_toggle > label {
+    margin-left: 5px;
+}
