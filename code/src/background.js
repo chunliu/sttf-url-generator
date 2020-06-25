@@ -29,7 +29,7 @@ function copyToClipboard (content) {
 }
 
 function quoteOnClick (info) {
-  // Create fragment link
+  // Create the fragment link.
   const directive = '#:~:text=';
   // If the page url has a fragment already, remove it first.
   const regex = RegExp(directive, 'g');
@@ -42,11 +42,13 @@ function quoteOnClick (info) {
 
   switch (info.menuItemId) {
     case 'sttf_open': {
+      // Copy the link and open it in a new tab.
       copyToClipboard(fragmentLink);
       chrome.tabs.create({ url: fragmentLink, active: true });
       break;
     }
     case 'sttf_copy': {
+      // Copy the link.
       copyToClipboard(fragmentLink);
       chrome.tabs.insertCSS({ file: './msgbox/msgbox.css' }, function () {
         chrome.tabs.executeScript({ file: './msgbox/msgbox.js' });
@@ -54,6 +56,7 @@ function quoteOnClick (info) {
       break;
     }
     case 'sttf_copy_md': {
+      // Copy the selected text and the link as markdown.
       const md = '[' + info.selectionText.trim() + '](' + fragmentLink + ')';
       copyToClipboard(md);
       chrome.tabs.insertCSS({ file: './msgbox/msgbox.css' }, function () {
@@ -67,19 +70,6 @@ function quoteOnClick (info) {
 /* global chrome */
 chrome.contextMenus.onClicked.addListener(quoteOnClick);
 
-function showMenuItem (id, title, create) {
-  if (create) {
-    chrome.contextMenus.create({
-      title: title,
-      id: id,
-      parentId: 'sttf_parent',
-      contexts: ['selection']
-    });
-  } else {
-    chrome.contextMenus.remove(id);
-  }
-}
-
 chrome.runtime.onInstalled.addListener(function () {
   // Initialize
   chrome.contextMenus.create({
@@ -87,48 +77,56 @@ chrome.runtime.onInstalled.addListener(function () {
     id: 'sttf_parent',
     contexts: ['selection']
   });
-  showMenuItem('sttf_copy', 'Copy', true);
-  showMenuItem('sttf_open', 'Open', true);
-
-  chrome.storage.local.set({
-    showOpen: true,
-    showCopy: true,
-    showCopyMd: false
+  chrome.contextMenus.create({
+    title: 'Copy',
+    id: 'sttf_copy',
+    parentId: 'sttf_parent',
+    contexts: ['selection']
+  });
+  chrome.contextMenus.create({
+    title: 'Open',
+    id: 'sttf_open',
+    parentId: 'sttf_parent',
+    contexts: ['selection']
+  });
+  chrome.contextMenus.create({
+    title: 'Copy as MD',
+    id: 'sttf_copy_md',
+    parentId: 'sttf_parent',
+    contexts: ['selection']
   });
 
-  // chrome.storage.local.get(['showOpen', 'showCopy', 'showCopyMd'], function (result) {
-  //   console.log(JSON.stringify(result));
-  //   console.log(result.showOpen);
-  // });
+  chrome.storage.local.clear(function () {
+    chrome.storage.local.set({
+      showOpen: true,
+      showCopy: true,
+      showCopyMd: false
+    });
+  });
 });
 
 chrome.storage.onChanged.addListener(function (changes) {
   for (const key in changes) {
     const storageChange = changes[key];
-    // If it is triggered by onInstall, do nothing.
-    if (storageChange.oldValue === undefined) {
-      continue;
-    }
 
-    let id = '';
-    let title = '';
     switch (key) {
       case 'showCopy': {
-        id = 'sttf_copy';
-        title = 'Copy';
+        chrome.contextMenus.update('sttf_copy', { visible: storageChange.newValue });
         break;
       }
       case 'showOpen': {
-        id = 'sttf_open';
-        title = 'Open';
+        chrome.contextMenus.update('sttf_open', { visible: storageChange.newValue });
         break;
       }
       case 'showCopyMd': {
-        id = 'sttf_copy_md';
-        title = 'Copy as MD';
+        chrome.contextMenus.update('sttf_copy_md', { visible: storageChange.newValue });
         break;
       }
     }
-    showMenuItem(id, title, storageChange.newValue);
   }
+  // Disable the parent menu if all children are disabled.
+  chrome.storage.local.get(['showOpen', 'showCopy', 'showCopyMd'], function (result) {
+    const disableParent = result.showOpen || result.showCopy || result.showCopyMd;
+    chrome.contextMenus.update('sttf_parent', { enabled: disableParent });
+  });
 });

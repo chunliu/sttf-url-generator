@@ -1,7 +1,6 @@
 html {
-    width: 220px;
+    width: 200px;
 }
-
 body {
     margin: 0 !important;
     background-color: #ffffff;
@@ -9,29 +8,35 @@ body {
         sans-serif;
     color: #201f1e;
     font-size: 12px;
-    width: 220px;
+    width: 200px;
 }
-
 .settings_header {
     align-items: center;
     display: flex;
     justify-content: space-between;
     padding: 0 16px;
-    font-size: 18px;
+    font-size: 16px;
+    font-weight: 600;
 }
-
+.settings_header > p {
+    margin-block-start: 0.6em;
+    margin-block-end: 0.6em;
+}
 .settings_toggle_line {
     padding: 0 16px;
-    margin-bottom: 16px;
+    margin: 16px 0;
 }
-
 .settings_toggle {
     align-items: center;
     display: flex;
     height: 20px;
     margin: 6px 0;
 }
-
 .settings_toggle > label {
     margin-left: 5px;
+}
+.settings_divider {
+    border-bottom: 1px solid rgba(16,22,26,0.15);
+    border-right: 1px solid rgba(16,22,26,0.15);
+    margin: 5px;
 }
