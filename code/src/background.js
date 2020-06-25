@@ -67,28 +67,63 @@ function quoteOnClick (info) {
 /* global chrome */
 chrome.contextMenus.onClicked.addListener(quoteOnClick);
 
+function showMenuItem (id, title, create) {
+  if (create) {
+    chrome.contextMenus.create({
+      title: title,
+      id: id,
+      parentId: 'sttf_parent',
+      contexts: ['selection']
+    });
+  } else {
+    chrome.contextMenus.remove(id);
+  }
+}
+
 chrome.runtime.onInstalled.addListener(function () {
+  // Initialize
   chrome.contextMenus.create({
     title: 'STTF Link',
     id: 'sttf_parent',
     contexts: ['selection']
   });
-  chrome.contextMenus.create({
-    title: 'Copy',
-    id: 'sttf_copy',
-    parentId: 'sttf_parent',
-    contexts: ['selection']
+  showMenuItem('sttf_copy', 'Copy', true);
+  showMenuItem('sttf_open', 'Open', true);
+
+  chrome.storage.local.set({
+    showOpen: true,
+    showCopy: true,
+    showCopyMd: false
   });
-  chrome.contextMenus.create({
-    title: 'Open',
-    id: 'sttf_open',
-    parentId: 'sttf_parent',
-    contexts: ['selection']
-  });
-  chrome.contextMenus.create({
-    title: 'Copy as MD',
-    id: 'sttf_copy_md',
-    parentId: 'sttf_parent',
-    contexts: ['selection']
-  });
+});
+
+chrome.storage.onChanged.addListener(function (changes) {
+  for (const key in changes) {
+    const storageChange = changes[key];
+    // If it is triggered by onInstall, do nothing.
+    if (storageChange.oldValue === undefined) {
+      continue;
+    }
+
+    let id = '';
+    let title = '';
+    switch (key) {
+      case 'showCopy': {
+        id = 'sttf_copy';
+        title = 'Copy';
+        break;
+      }
+      case 'showOpen': {
+        id = 'sttf_open';
+        title = 'Open';
+        break;
+      }
+      case 'showCopyMd': {
+        id = 'sttf_copy_md';
+        title = 'Copy as MD';
+        break;
+      }
+    }
+    showMenuItem(id, title, storageChange.newValue);
+  }
 });
