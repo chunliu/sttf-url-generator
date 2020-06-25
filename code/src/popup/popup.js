@@ -1,7 +1,7 @@
 'use strict';
 
-function checked () {
+/* global chrome */
 
-}
-
-checked();
+chrome.storage.local.get(['showOpen'], function(result) {
+    console.log('value currently is ' + result.key);
+});
