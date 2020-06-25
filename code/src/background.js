@@ -95,6 +95,11 @@ chrome.runtime.onInstalled.addListener(function () {
     showCopy: true,
     showCopyMd: false
   });
+
+  // chrome.storage.local.get(['showOpen', 'showCopy', 'showCopyMd'], function (result) {
+  //   console.log(JSON.stringify(result));
+  //   console.log(result.showOpen);
+  // });
 });
 
 chrome.storage.onChanged.addListener(function (changes) {
