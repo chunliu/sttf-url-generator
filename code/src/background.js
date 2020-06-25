@@ -39,17 +39,28 @@ function quoteOnClick (info) {
   }
 
   const fragmentLink = pageUrl + directive + getFragment(info.selectionText);
-  // Copy it to clipboard
-  copyToClipboard(fragmentLink);
 
-  if (info.menuItemId === 'sttf_open') {
-    // Open a new tab if the user choose to
-    chrome.tabs.create({ url: fragmentLink, active: true });
-  } else {
-    // Display a message
-    chrome.tabs.insertCSS({ file: './msgbox/msgbox.css' }, function () {
-      chrome.tabs.executeScript({ file: './msgbox/msgbox.js' });
-    });
+  switch (info.menuItemId) {
+    case 'sttf_open': {
+      copyToClipboard(fragmentLink);
+      chrome.tabs.create({ url: fragmentLink, active: true });
+      break;
+    }
+    case 'sttf_copy': {
+      copyToClipboard(fragmentLink);
+      chrome.tabs.insertCSS({ file: './msgbox/msgbox.css' }, function () {
+        chrome.tabs.executeScript({ file: './msgbox/msgbox.js' });
+      });
+      break;
+    }
+    case 'sttf_copy_md': {
+      const md = '[' + info.selectionText.trim() + '](' + fragmentLink + ')';
+      copyToClipboard(md);
+      chrome.tabs.insertCSS({ file: './msgbox/msgbox.css' }, function () {
+        chrome.tabs.executeScript({ file: './msgbox/msgbox.js' });
+      });
+      break;
+    }
   }
 }
 
@@ -71,6 +82,12 @@ chrome.runtime.onInstalled.addListener(function () {
   chrome.contextMenus.create({
     title: 'Open',
     id: 'sttf_open',
+    parentId: 'sttf_parent',
+    contexts: ['selection']
+  });
+  chrome.contextMenus.create({
+    title: 'Copy as MD',
+    id: 'sttf_copy_md',
     parentId: 'sttf_parent',
     contexts: ['selection']
   });
