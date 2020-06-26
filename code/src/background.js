@@ -30,15 +30,14 @@ function copyToClipboard (content) {
 
 function quoteOnClick (info) {
   // Create the fragment link.
-  const directive = '#:~:text=';
-  // If the page url has a fragment already, remove it first.
+  let directive = '#:~:text=';
+  // Support multiple text fragments.
   const regex = RegExp(directive, 'g');
-  let pageUrl = info.pageUrl;
   if (regex.test(info.pageUrl)) {
-    pageUrl = info.pageUrl.split(directive)[0];
+    directive = '&text=';
   }
 
-  const fragmentLink = pageUrl + directive + getFragment(info.selectionText);
+  const fragmentLink = info.pageUrl + directive + getFragment(info.selectionText);
 
   switch (info.menuItemId) {
     case 'sttf_open': {

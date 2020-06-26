@@ -1,9 +1,9 @@
 {
   "manifest_version": 2,  
   "name": "STTF Url Generator",
-  "version": "1.0",
+  "version": "1.1",
   "author": "Chun Liu",
-  "description": "Generate a scroll-to-text-fragment url and open it in a new tab.",
+  "description": "Generate a url with text fragment and copy it to the clipboard or open it in a new tab.",
   "permissions": [
     "clipboardWrite", 
     "contextMenus",
