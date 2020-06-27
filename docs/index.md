@@ -11,13 +11,28 @@ This browser extension helps you create a url with a text fragment. With this ur
 
 ## How to use it
 
-- Get the extension from [Chrome Web Store](https://chrome.google.com/webstore/detail/sttf-url-generator/mlihnffnlcfgjkkmigdgahgpfpfddafo) or [Edge Add-ons](https://microsoftedge.microsoft.com/addons/detail/sttf-url-generator/dpdjjailihobhcfmchiadaomllbdfhid?hl=en-US).
+Get the extension from [Chrome Web Store](https://chrome.google.com/webstore/detail/sttf-url-generator/mlihnffnlcfgjkkmigdgahgpfpfddafo) or [Edge Add-ons](https://microsoftedge.microsoft.com/addons/detail/sttf-url-generator/dpdjjailihobhcfmchiadaomllbdfhid?hl=en-US).
+
+![how to use](./sttf-url-v1.1.gif)
+
+### Copy or Open the URL
+
 - Select a text snippet on the page and right click on the selection.
 - Point to `STTF Link` on the context menu.
 - Click `Copy` if you want to copy the sttf link without opening it.
 - Click `Open` if you want to open the sttf link in a new tab. The link will also be copied to the clipboard.
 
-![how to use](./sttf-url-v0.6.gif)
+### Copy the URL as Markdown
+
+- Turn on the `Copy As Markdown` option from the browser's toolbar.
+- Select a text snippet on the page and right click on the selection.
+- Select `STTF Link` > `Copy as MD`.
+
+### Multiple Text Fragments in One URL
+
+- Select the 1st text fragment and click `STTF Link` > `Open` to open it in a new tab.
+- In the new tab, select the 2nd text fragment and then choose either `Open` or `Copy` to get the URL.
+- If there are more text fragments to be selected, repeat the above steps until all text fragments are covered.
 
 ## How it works
 
