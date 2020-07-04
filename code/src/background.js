@@ -1,19 +1,17 @@
 (async (browser) => {
-  const getFragment = async (fragStr) => {
+  const getFragment = (fragStr) => {
     const str = fragStr.trim();
-
     if (str.length < 300) {
       // Use exact matching
       return encodeURIComponent(str);
-    } else {
-      // Use range-based matching
-      const start = str.match(/^(\S+\s+){5}/);
-      const end = str.match(/(\s+\S+){5}$/);
-      return encodeURIComponent(start[0]) + ',' + encodeURIComponent(end[0]);
     }
+    // Use range-based matching
+    const start = str.match(/^(\S+\s+){5}/);
+    const end = str.match(/(\s+\S+){5}$/);
+    return encodeURIComponent(start[0]) + ',' + encodeURIComponent(end[0]);
   };
 
-  const copyToClipboard = async (content) => {
+  const copyToClipboard = (content) => {
     // Create a hidden input
     const ta = document.createElement('textarea');
     ta.value = content;
@@ -72,26 +70,26 @@
       directive = '&text=';
     }
 
-    const selectedText = await await getSelectedText();
-    const fragmentLink = info.pageUrl + directive + await getFragment(selectedText);
+    const selectedText = await getSelectedText();
+    const fragmentLink = info.pageUrl + directive + getFragment(selectedText);
 
     switch (info.menuItemId) {
       case 'sttf_open': {
         // Copy the link and open it in a new tab.
-        await copyToClipboard(fragmentLink);
+        copyToClipboard(fragmentLink);
         browser.tabs.create({ url: fragmentLink, active: true });
         break;
       }
       case 'sttf_copy': {
         // Copy the link.
-        await copyToClipboard(fragmentLink);
+        copyToClipboard(fragmentLink);
         await sendMessageToCurrentTab('show_message');
         break;
       }
       case 'sttf_copy_md': {
         // Copy the selected text and the link as markdown.
         const md = '[' + selectedText + '](' + fragmentLink + ')';
-        await copyToClipboard(md);
+        copyToClipboard(md);
         await sendMessageToCurrentTab('show_message');
         break;
       }
