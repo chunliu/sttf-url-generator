@@ -6,7 +6,7 @@ module.exports = {
     context: path.resolve(__dirname, 'src'),
     entry: {
         background: './background.js',
-        'msgbox/msgbox': './msgbox/msgbox.js',
+        'content/content': './content/content.js',
         'popup/popup': './popup/popup.js'
     },
     output: {
@@ -32,7 +32,7 @@ module.exports = {
         new CopyWebpackPlugin({
             patterns: [
                 { from: './manifest.json', to: 'manifest.json'  },
-                { from: './msgbox/msgbox.css', to: 'msgbox/msgbox.css' },
+                { from: './content/msgbox.css', to: 'content/msgbox.css' },
                 { from: './popup/popup.html', to: 'popup/popup.html'},
                 { from: './popup/popup.css', to: 'popup/popup.css'},
                 { from: './images', to: 'images'}

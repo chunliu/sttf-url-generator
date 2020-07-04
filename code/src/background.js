@@ -27,6 +27,42 @@
     return success;
   };
 
+  const sendMessageToCurrentTab = (message, data = null) => {
+    return new Promise((resolve, reject) => {
+      browser.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+        browser.tabs.sendMessage(tabs[0].id, { message, data }, (response) => {
+          if (!response && browser.runtime.lastError) {
+            return reject(
+              new Error('Failed to connect to the specified tab.')
+            );
+          }
+          return resolve(response);
+        });
+      });
+    });
+  };
+
+  const injectScript = async () => {
+    try {
+      // If no error, the script has been injected.
+      await sendMessageToCurrentTab('is_ready');
+    } catch (err) {
+      await new Promise((resolve) => {
+        browser.tabs.insertCSS({ file: './content/msgbox.css' }, () => {
+          browser.tabs.executeScript({ file: './content/content.js' }, () => {
+            return resolve();
+          });
+        });
+      });
+    }
+  };
+
+  const getSelectedText = async () => {
+    await injectScript();
+    const response = await sendMessageToCurrentTab('get_selection');
+    return response.selection;
+  };
+
   const quoteOnClick = async (info) => {
     // Create the fragment link.
     let directive = '#:~:text=';
@@ -36,7 +72,8 @@
       directive = '&text=';
     }
 
-    const fragmentLink = info.pageUrl + directive + await getFragment(info.selectionText);
+    const selectedText = await await getSelectedText();
+    const fragmentLink = info.pageUrl + directive + await getFragment(selectedText);
 
     switch (info.menuItemId) {
       case 'sttf_open': {
@@ -48,18 +85,14 @@
       case 'sttf_copy': {
         // Copy the link.
         await copyToClipboard(fragmentLink);
-        browser.tabs.insertCSS({ file: './msgbox/msgbox.css' }, function () {
-          browser.tabs.executeScript({ file: './msgbox/msgbox.js' });
-        });
+        await sendMessageToCurrentTab('show_message');
         break;
       }
       case 'sttf_copy_md': {
         // Copy the selected text and the link as markdown.
-        const md = '[' + info.selectionText.trim() + '](' + fragmentLink + ')';
+        const md = '[' + selectedText + '](' + fragmentLink + ')';
         await copyToClipboard(md);
-        browser.tabs.insertCSS({ file: './msgbox/msgbox.css' }, function () {
-          browser.tabs.executeScript({ file: './msgbox/msgbox.js' });
-        });
+        await sendMessageToCurrentTab('show_message');
         break;
       }
     }
