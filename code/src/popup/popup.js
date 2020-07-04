@@ -1,22 +1,19 @@
-'use strict';
+((browser) => {
+  const onCheckboxChanged = (event) => {
+    switch (event.target.id) {
+      case 'showOpen':
+        browser.storage.local.set({ showOpen: event.target.checked });
+        break;
+      case 'showCopy':
+        browser.storage.local.set({ showCopy: event.target.checked });
+        break;
+      case 'showCopyMd':
+        browser.storage.local.set({ showCopyMd: event.target.checked });
+        break;
+    }
+  };
 
-function onCheckboxChanged (event) {
-  switch (event.target.id) {
-    case 'showOpen':
-      chrome.storage.local.set({ showOpen: event.target.checked });
-      break;
-    case 'showCopy':
-      chrome.storage.local.set({ showCopy: event.target.checked });
-      break;
-    case 'showCopyMd':
-      chrome.storage.local.set({ showCopyMd: event.target.checked });
-      break;
-  }
-}
-
-(function () {
-  /* global chrome */
-  chrome.storage.local.get(['showOpen', 'showCopy', 'showCopyMd'], function (result) {
+  browser.storage.local.get(['showOpen', 'showCopy', 'showCopyMd'], (result) => {
     // console.log(JSON.stringify(result));
     document.getElementById('showOpen').checked = result.showOpen;
     document.getElementById('showCopy').checked = result.showCopy;
@@ -26,4 +23,5 @@ function onCheckboxChanged (event) {
   document.getElementById('showOpen').addEventListener('change', onCheckboxChanged);
   document.getElementById('showCopy').addEventListener('change', onCheckboxChanged);
   document.getElementById('showCopyMd').addEventListener('change', onCheckboxChanged);
-})();
+  // eslint-disable-next-line no-undef
+})(chrome || browser);
