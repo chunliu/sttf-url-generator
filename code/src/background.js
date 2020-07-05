@@ -83,14 +83,14 @@
       case 'sttf_copy': {
         // Copy the link.
         copyToClipboard(fragmentLink);
-        await sendMessageToCurrentTab('show_message');
+        await sendMessageToCurrentTab('show_message', '🎉 The text fragment link has been copied.');
         break;
       }
       case 'sttf_copy_md': {
         // Copy the selected text and the link as markdown.
         const md = '[' + selectedText + '](' + fragmentLink + ')';
         copyToClipboard(md);
-        await sendMessageToCurrentTab('show_message');
+        await sendMessageToCurrentTab('show_message', '🎉 The text fragment link has been copied as Markdown.');
         break;
       }
     }

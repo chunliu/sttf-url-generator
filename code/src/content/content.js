@@ -27,12 +27,12 @@
     }, 10);
   };
 
-  const showMessageBox = () => {
+  const showMessageBox = (message) => {
     let msgbox = document.querySelector('sttf-url-msg-box');
     if (msgbox == null) {
       // Create the message box element
       const template = document.createElement('template');
-      template.innerHTML = '<div class="sttf-url-msg-box"><span class="helper"></span><div><p>The STTF link has been copied!</p></div></div>';
+      template.innerHTML = `<div class="sttf-url-msg-box"><span class="helper"></span><div><p>${message}</p></div></div>`;
 
       msgbox = template.content.firstChild;
       document.body.append(msgbox);
@@ -85,7 +85,7 @@
         break;
       }
       case 'show_message': {
-        showMessageBox();
+        showMessageBox(request.data);
         sendResponse('shown');
         break;
       }

@@ -1,6 +1,6 @@
 {
   "name": "sttf-url-generator",
-  "version": "1.1.1",
+  "version": "1.3.0",
   "description": "The project for sttf-url-generator extension",
   "main": "index.js",
   "scripts": {
