@@ -58,9 +58,17 @@
       sel.collapse(sel.anchorNode, sel.anchorOffset);
       sel.modify('move', direction[0], 'character');
       sel.modify('move', direction[1], 'word');
+      // remove the whitespace after the word
+      if (direction[0] === 'backward') {
+        sel.modify('move', 'backward', 'character');
+      }
       sel.extend(endNode, endOffset);
       sel.modify('extend', direction[1], 'character');
       sel.modify('extend', direction[0], 'word');
+      // remove the whitespace after the word
+      if (direction[0] === 'forward') {
+        sel.modify('extend', 'backward', 'character');
+      }
     }
     return sel.toString().trim();
   };
