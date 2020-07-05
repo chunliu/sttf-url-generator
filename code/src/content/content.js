@@ -53,24 +53,32 @@
       range.detach();
 
       // modify() works on the focus of the selection
-      const endNode = sel.focusNode;
-      const endOffset = sel.focusOffset;
+      let endNode = sel.focusNode;
+      let endOffset = sel.focusOffset;
       sel.collapse(sel.anchorNode, sel.anchorOffset);
       sel.modify('move', direction[0], 'character');
       sel.modify('move', direction[1], 'word');
-      // remove the whitespace after the word
-      if (direction[0] === 'backward') {
-        sel.modify('move', 'backward', 'character');
-      }
       sel.extend(endNode, endOffset);
       sel.modify('extend', direction[1], 'character');
       sel.modify('extend', direction[0], 'word');
-      // remove the whitespace after the word
-      if (direction[0] === 'forward') {
+
+      // It seems in Chrome when moving a word, it would count the following whitespace of the word.
+      // A problem with the whitespace is if users repeat the action, the selection would be extended unexpectedly.
+      // The following code removes that whitespace.
+      if (direction[0] === 'forward' &&
+        sel.focusNode.textContent.charAt(sel.focusOffset - 1) === ' ') {
+        // for the forward selection, the whitespace could appear in the focusNode
         sel.modify('extend', 'backward', 'character');
+      } else if (direction[0] === 'backward' &&
+        sel.anchorNode.textContent.charAt(sel.anchorOffset - 1) === ' ') {
+        // for the backward selection, the whitespace could appear in the anchorNode
+        endNode = sel.focusNode;
+        endOffset = sel.focusOffset;
+        sel.collapse(sel.anchorNode, sel.anchorOffset - 1);
+        sel.extend(endNode, endOffset);
       }
     }
-    return sel.toString().trim();
+    return sel.toString();
   };
 
   browser.runtime.onMessage.addListener((request, _, sendResponse) => {
