@@ -1,3 +1,5 @@
+*Archive this repo as the browsers (at least Edge and Chrome) has the functionality built-in them (e.g. Copy link to highlight).*
+
 # ![Icon](/media/sttf-url48.png) scroll-to-text-fragment url generator
 
 ![build](https://github.com/chunliu/sttf-url-generator/workflows/build/badge.svg)
